@@ -1,0 +1,173 @@
+/* common */
+body {
+  width: 1280px;
+  height: 1537px;
+  font-family: "Meiryo", "MS PGothic", sans-serif;
+  background-color: #FFFFFF;
+  font-size: 16px;
+  color: #383E45;
+}
+
+.inner {
+  width: 820px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section {
+  margin-bottom: 100px;
+}
+
+.section-ttl {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: bold;
+  border-bottom: 1px solid #383E45;
+}
+
+/* header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-ttl {
+  width: 120px;
+  padding: 10px 0;
+}
+
+.header-img {
+  width: 100%;
+}
+
+.header-li {
+  display: flex;
+  align-items: center;
+}
+
+.header-items:last-child {
+  margin-left: 33px;
+  font-size: 1rem;
+}
+
+/* main */
+.mv {
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.mv-img {
+  width: 100%;
+  object-fit: contain;
+}
+
+/* about */
+.about-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  margin-top: 80px;
+}
+
+.about-img-box {
+  width: 100px;
+  margin-right: 30px;
+}
+
+.about-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.about-content-box {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.about-content-ttl {
+  text-align: left;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.about-content-txt {
+  line-height: 1.7;
+  font-size: .9rem;
+}
+
+/* bicycle */
+.bicycle-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 80px;
+}
+
+.bicycle-items-img-box {
+  width: 100%;
+}
+
+.bicycle-items-img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.bicycle-ttl {
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.bicycle-items-txt {
+  font-size: .9rem;
+}
+
+/* footer */
+.footer {
+  text-align: center;
+  padding: 10px 0;
+  font-size: .8rem;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    width: 100%;
+  }
+
+  .inner {
+    width: 90%;
+  }
+
+  /* about */
+  .about-wrapper {
+    flex-direction: column;
+    margin-top: 60px;
+    height: auto;
+  }
+
+  .about-img-box {
+    margin: 0;
+  }
+
+  .about-content-box {
+    text-align: left;
+  }
+
+  .about-content-ttl {
+    padding: 15px 0;
+  }
+
+  /* bicycle */
+  .bicycle-wrapper {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 30px;
+  }
+  
+}
