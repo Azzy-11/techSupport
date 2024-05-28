@@ -20,13 +20,14 @@
   };
   
   const toggleAccordion = async (index) => {
-    menuContents[index].classList.toggle('display-none');
     const isOpen = !menuContents[index].classList.contains('display-none');
-
+    
     if (isOpen) {
-      await animation(menuContents[index], fadeIn);
-    } else {
       await animation(menuContents[index], fadeOut);
+      menuContents[index].classList.toggle('display-none');
+    } else {
+      menuContents[index].classList.toggle('display-none');
+      await animation(menuContents[index], fadeIn);
     }
 
     upArrows[index].classList.toggle('display-none');
