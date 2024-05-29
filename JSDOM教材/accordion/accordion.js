@@ -13,9 +13,10 @@
     fill: 'forwards'
   };
 
-  const animation = async (content, effect) => {
-    await new Promise((resolve) => {
-      content.animate(effect, options).onfinish = resolve();
+  const animation = (content, effect) => {
+    return new Promise((resolve) => {
+      const animation = content.animate(effect, options);
+      animation.addEventListener('finish', () => resolve());
     });
   };
   
