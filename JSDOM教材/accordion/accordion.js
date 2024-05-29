@@ -16,7 +16,8 @@
   const animation = (content, effect) => {
     return new Promise((resolve) => {
       const animation = content.animate(effect, options);
-      animation.addEventListener('finish', () => resolve());
+      // animation.addEventListener('finish', () => resolve());
+      animation.onfinish = resolve; //どっちでもよい
     });
   };
   
