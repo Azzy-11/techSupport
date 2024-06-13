@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import CreateForm from './CreateForm';
 
 function App(): JSX.Element {
   const [id, setId] = useState(1);
@@ -26,14 +27,11 @@ function App(): JSX.Element {
 
   return (
     <React.Fragment>
-      <div>
-        <input 
-        type="text"
-        value={title}
-        onChange={handleCreateForm}
-        />
-        <button onClick={handleStoreTodo}>追加</button>
-      </div>
+      <CreateForm
+        title = {title}
+        handleCreateForm = {handleCreateForm}
+        handleStoreTodo = {handleStoreTodo}
+      />
       <ul>
         {list.map((todo) => {
           return(
