@@ -7,18 +7,38 @@ function App(): JSX.Element {
   const [title, setTitle] = useState("");
   const [status, setStatus] = useState("未着手");
   const [list, setList] = useState<any[]>([]);
+  const [isEditing, setIsEditing] = useState<number | null>(null);
+  const [editTitle, setEditTitle] = useState("");
 
 
-  const handleCreateForm = (e:any) => {
+  const handleCreateForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
   const handleStoreTodo = () => {
     setList([
       ...list,
-    {id: id, title: title, status: status}])
+    { id: id, title: title, status: status }
+    ]);
     setId(id + 1);
     setTitle("");
+  };
+
+  const handleChangeForm = (todo: any) => {
+    setIsEditing(todo.id);
+    setEditTitle(todo.title);
+  };
+
+  const handleUpdateForm = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditTitle(e.target.value);
+  };
+
+  const handleUpdateTodo = (id: number) => {
+    setList(list.map((todo) => (
+      todo.id === id ? { ...todo, title: editTitle } : todo
+    )));
+    setIsEditing(null);
+    setEditTitle("");
   };
 
   const handleDeleteTodo = (targetTodo:any) => {
@@ -34,11 +54,26 @@ function App(): JSX.Element {
       />
       <ul>
         {list.map((todo) => {
+          const isCurrentEditing = isEditing === todo.id;
           return(
             <li key={todo.id}>
-              <span>{todo.title}</span>
+              <span>
+                {isCurrentEditing ? (
+                  <input 
+                    type="text"
+                    value={editTitle}
+                    onChange={handleUpdateForm}
+                  />
+                ) : (
+                  todo.title
+                )}
+              </span>
               <button>{todo.status}</button>
-              <button>編集</button>
+              {isCurrentEditing ? (
+                <button onClick={() => handleUpdateTodo(todo.id)}>保存</button>
+              ) : (
+                <button onClick={() => handleChangeForm(todo)}>編集</button>
+              )}
               <button onClick={() => handleDeleteTodo(todo)}>削除</button>
             </li>
           )
