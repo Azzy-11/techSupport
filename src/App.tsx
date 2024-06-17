@@ -9,6 +9,11 @@ function App(): JSX.Element {
   const [isEditing, setIsEditing] = useState<number | null>(null);
   const [editTitle, setEditTitle] = useState("");
 
+  type Todo = {
+    id: number,
+    title: string,
+    status: string
+  }
 
   const handleCreateForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -23,24 +28,24 @@ function App(): JSX.Element {
     setTitle("");
   };
 
-  const handleChangeForm = (todo: any) => {
-    setIsEditing(todo.id);
-    setEditTitle(todo.title);
+  const handleChangeForm = (targetTodo: Todo) => {
+    setIsEditing(targetTodo.id);
+    setEditTitle(targetTodo.title);
   };
 
   const handleUpdateForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditTitle(e.target.value);
   };
 
-  const handleUpdateTodo = (id: number) => {
+  const handleUpdateTodo = (targetTodo: Todo) => {
     setList(list.map((todo) => (
-      todo.id === id ? { ...todo, title: editTitle } : todo
+      todo.id === targetTodo.id ? { ...todo, title: editTitle } : todo
     )));
     setIsEditing(null);
     setEditTitle("");
   };
 
-  const handleChangeStatus = (targetTodo: any) => {
+  const handleChangeStatus = (targetTodo: Todo) => {
     setList(list.map((todo) => (
       todo.id === targetTodo.id ? { ...todo, status: getNextStatus(todo.status) } : todo
     )));
@@ -59,8 +64,8 @@ function App(): JSX.Element {
     }
   };
 
-  const handleDeleteTodo = (targetTodo: any) => {
-    setList(list.filter((todo) => todo !== targetTodo));
+  const handleDeleteTodo = (targetTodo: Todo) => {
+    setList(list.filter((todo) => todo.id !== targetTodo.id));
   };
 
   return (
@@ -88,7 +93,7 @@ function App(): JSX.Element {
               </span>
               <button onClick={() => handleChangeStatus(todo)}>{todo.status}</button>
               {isCurrentEditing ? (
-                <button onClick={() => handleUpdateTodo(todo.id)}>保存</button>
+                <button onClick={() => handleUpdateTodo(todo)}>保存</button>
               ) : (
                 <button onClick={() => handleChangeForm(todo)}>編集</button>
               )}
