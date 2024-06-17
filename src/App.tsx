@@ -5,7 +5,6 @@ import CreateForm from './CreateForm';
 function App(): JSX.Element {
   const [id, setId] = useState(1);
   const [title, setTitle] = useState("");
-  const [status, setStatus] = useState("未着手");
   const [list, setList] = useState<any[]>([]);
   const [isEditing, setIsEditing] = useState<number | null>(null);
   const [editTitle, setEditTitle] = useState("");
@@ -18,7 +17,7 @@ function App(): JSX.Element {
   const handleStoreTodo = () => {
     setList([
       ...list,
-    { id: id, title: title, status: status }
+    { id: id, title: title, status: "未着手" }
     ]);
     setId(id + 1);
     setTitle("");
@@ -41,7 +40,26 @@ function App(): JSX.Element {
     setEditTitle("");
   };
 
-  const handleDeleteTodo = (targetTodo:any) => {
+  const handleChangeStatus = (targetTodo: any) => {
+    setList(list.map((todo) => (
+      todo.id === targetTodo.id ? { ...todo, status: getNextStatus(todo.status) } : todo
+    )));
+  };
+
+  const getNextStatus = (currentStatus: string) => {
+    switch (currentStatus) {
+      case "未着手":
+        return "進行中";
+      case "進行中":
+        return "完了";
+      case "完了":
+        return "未着手";
+      default:
+        return currentStatus;
+    }
+  };
+
+  const handleDeleteTodo = (targetTodo: any) => {
     setList(list.filter((todo) => todo !== targetTodo));
   };
 
@@ -55,7 +73,7 @@ function App(): JSX.Element {
       <ul>
         {list.map((todo) => {
           const isCurrentEditing = isEditing === todo.id;
-          return(
+          return (
             <li key={todo.id}>
               <span>
                 {isCurrentEditing ? (
@@ -68,7 +86,7 @@ function App(): JSX.Element {
                   todo.title
                 )}
               </span>
-              <button>{todo.status}</button>
+              <button onClick={() => handleChangeStatus(todo)}>{todo.status}</button>
               {isCurrentEditing ? (
                 <button onClick={() => handleUpdateTodo(todo.id)}>保存</button>
               ) : (
